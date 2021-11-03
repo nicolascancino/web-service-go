@@ -1,20 +1,18 @@
 package main
 
 import (
-	"fmt"
 	"log"
-	"net/http"
+
+	"github.com/joho/godotenv"
+	"github.com/nicolascancino/web-service-go/server"
 )
 
 func main() {
 
-	http.HandleFunc("/status", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprint(w, "Hello world")
-	})
-
-	if err := http.ListenAndServe(":8080", nil); err != nil {
-		log.Fatalf("Error starting server %v", err)
-		panic(err)
+	if err := godotenv.Load(); err != nil {
+		log.Printf("error, %v", err.Error())
 	}
+
+	server.Start()
 
 }
